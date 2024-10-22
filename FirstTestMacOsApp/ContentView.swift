@@ -7,17 +7,41 @@
 
 import SwiftUI
 
+struct Option: Hashable {
+    let title: String
+    let imageName: String
+}
+
+
+
+
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            ListView()
+            
+            MainView()
         }
-        .padding()
     }
 }
+
+
+struct ListView: View {
+    var body: some View {
+        Text("List")
+    }
+}
+
+
+struct MainView: View {
+    var body: some View {
+        Text("Main")
+    }
+}
+
+
+
+
 
 #Preview {
     ContentView()
