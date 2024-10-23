@@ -25,7 +25,7 @@ struct ContentView: View {
         .init(title: "About", imageName: "info.circle"),
         .init(title: "Setting", imageName: "gear"),
         .init(title: "Social", imageName: "message"),
-        ]
+    ]
     
     var body: some View {
         
@@ -48,6 +48,7 @@ struct ListView: View {
         VStack {
             ForEach(options, id: \.self) { option in
                 HStack {
+                    
                     Image(systemName: option.imageName)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
@@ -56,6 +57,7 @@ struct ListView: View {
                     Text(option.title)
                     
                     Spacer()
+                    
                 }//END HStack.. ...
                 .padding(.top, 10)
                 .padding(.leading, 10)
@@ -75,6 +77,9 @@ struct ListView: View {
 struct MainView: View {
     
     let cols: [GridItem] = [
+//        .init(.fixed(200)),
+//        .init(.fixed(200)),
+//        .init(.fixed(200))
         .init(.flexible()),
         .init(.flexible()),
         .init(.flexible())
@@ -84,19 +89,44 @@ struct MainView: View {
     
     var body: some View {
         VStack {
-            Image("header")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+            
+            ZStack {
+                Image("header")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                
+                VStack {
+                    Spacer()
+                    Text ("Enjoy your Stream")
+                        .fontWeight(.semibold)
+                        .font(.system(size: 30))
+                        .offset(y: -30)
+                }
+            }
             
             LazyVGrid(columns: cols) {
                 ForEach(videos, id: \.self) { video in
-                    if let videoURL = Bundle.main.url(forResource: video, withExtension: "mov") {
-                        VideoPlayer(player: AVPlayer(url: videoURL))
-                            .frame(height: 100)
-                    } else {
-                        Text("Vidéo introuvable")
-                            .frame(height: 100)
-                    }
+                    VStack /*#2*/ {
+                        if let videoURL = Bundle.main.url(forResource: video, withExtension: "mov") {
+                            VideoPlayer(player: AVPlayer(url: videoURL))
+                                .scaledToFit()
+//                                .frame(maxWidth: 300, maxHeight: 169)
+//                                .aspectRatio(contentMode: .fill)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                            
+                            Text(video)
+                                .font(.headline)
+                                .padding(.top, 5)
+                            
+                            
+                        } else {
+                            Text("Vidéo introuvable")
+                                .frame(height: 100)
+                            
+                        }
+                        
+                    }//END VStack#2
                     
                 }//END ForEach
                 
