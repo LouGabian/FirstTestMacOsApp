@@ -118,11 +118,15 @@ struct MainView: View {
                             Text(video)
                                 .font(.headline)
                                 .padding(.top, 5)
-                            
+                            Text("hello Github")
                             
                         } else {
                             Text("Vidéo introuvable")
                                 .frame(height: 100)
+                            
+                            
+                            
+                            
                             
                         }
                         
